@@ -28,5 +28,6 @@ namespace Company.Demo03.DAL.Data.Contexts
         //    optionsBuilder.UseSqlServer("Server = .; Database = CompanyMVC; Trusted_Connection = True;Encrypt=True;TrustServerCertificate=True");
         //}
         public DbSet<Department> Departments { get; set; }
+        public DbSet<Employee> Employees { get; set; }
     }
 }

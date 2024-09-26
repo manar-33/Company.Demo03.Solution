@@ -1,23 +1,22 @@
 ﻿using Company.Demo03.BLL.Interfaces;
-using Company.Demo03.BLL.Repository;
 using Company.Demo03.DAL.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Company.Demo03.PL.Controllers
 {
-    public class DepartmentController : Controller
+    public class EmployeeController : Controller
     {
-        private readonly IDepartmentRepository _departmentRepository;
-        public DepartmentController(IDepartmentRepository departmentRepository)
+        private readonly IEmployeeRepository _employeeRepository;
+        public EmployeeController(IEmployeeRepository employeeRepository)
         {
-            _departmentRepository = departmentRepository;
+            _employeeRepository = employeeRepository;
         }
         [HttpGet]
         public IActionResult Index()
         {
 
-            var departments = _departmentRepository.GetAll();
-            return View(departments);
+            var employees = _employeeRepository.GetAll();
+            return View(employees);
         }
         public IActionResult Create()
         {
@@ -25,11 +24,11 @@ namespace Company.Demo03.PL.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Department model)
+        public IActionResult Create(Employee model)
         {
             if (ModelState.IsValid)
             {
-                var Count = _departmentRepository.Add(model);
+                var Count = _employeeRepository.Add(model);
                 if (Count > 0)
                 {
                     return RedirectToAction("Index");
@@ -38,13 +37,13 @@ namespace Company.Demo03.PL.Controllers
 
             return View(model);
         }
-        public IActionResult Details(int? id , string viewName= "Details")
+        public IActionResult Details(int? id, string viewName = "Details")
         {
             if (id is null) return BadRequest();
 
-            var department = _departmentRepository.Get(id.Value);
-            if (department is null) return NotFound();
-            return View(viewName,department);
+            var employee = _employeeRepository.Get(id.Value);
+            if (employee is null) return NotFound();
+            return View(viewName, employee);
 
         }
         [HttpGet]
@@ -55,19 +54,19 @@ namespace Company.Demo03.PL.Controllers
             //var department = _departmentRepository.Get(id.Value);
             //if (department is null) return NotFound();
             //return View(department);
-            return Details(id , "Edit");
+            return Details(id, "Edit");
 
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit([FromRoute] int? id, Department model)
+        public IActionResult Edit([FromRoute] int? id, Employee model)
         {
             try
             {
                 if (id != model.Id) return BadRequest();
                 if (ModelState.IsValid)
                 {
-                    var Count = _departmentRepository.Update(model);
+                    var Count = _employeeRepository.Update(model);
                     if (Count > 0)
                     {
                         return RedirectToAction(nameof(Index));
@@ -93,14 +92,14 @@ namespace Company.Demo03.PL.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Delete([FromRoute] int? id, Department model)
+        public IActionResult Delete([FromRoute] int? id, Employee model)
         {
             try
             {
                 if (id != model.Id) return BadRequest();
                 if (ModelState.IsValid)
                 {
-                    var Count = _departmentRepository.Delete(model);
+                    var Count = _employeeRepository.Delete(model);
                     if (Count > 0)
                     {
                         return RedirectToAction(nameof(Index));
