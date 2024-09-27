@@ -12,6 +12,13 @@
     <input asp-for="Age" class="form-control" readonly />
 
 </div>
+@* <br />
+<div class="form-group">
+    <label asp-for="WorkFor" class="col-form-label"></label>
+    <br />
+    <input asp-for="WorkFor" class="form-control" readonly />
+
+</div> *@
 <br />
 <div class="form-group">
     <label asp-for="Address" class="col-form-label"></label>
@@ -43,9 +50,11 @@
 <br />
 <div class="form-group">
     <label asp-for="IsActive" class="col-form-label"></label>
-    <br />
-    <input asp-for="IsActive" class="form-control" readonly />
-
+    <div class="form-check">
+        <input type="checkbox" asp-for="IsActive" class="form-check-input" disabled />
+        <label class="form-check-label" asp-for="IsActive"></label>
+    </div>
+    <span asp-validation-for="IsActive" class="text-danger"></span>
 </div>
 <br />
 <div class="form-group">
@@ -56,11 +65,7 @@
 </div>
 <br />
 
-<div class="form-group">
-    <label asp-for="DateOfCreation" class="col-form-label"></label>
-    <br />
-    <input asp-for="DateOfCreation" class="form-control" readonly />
-</div>
+
 @*
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 *@

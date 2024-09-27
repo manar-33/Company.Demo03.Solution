@@ -1,4 +1,4 @@
-namespace Company.Demo03.PL.Models
+namespace Company.Demo03.PL.ViewModels
 {
     public class ErrorViewModel
     {

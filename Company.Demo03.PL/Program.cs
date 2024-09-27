@@ -1,6 +1,8 @@
+using Company.Demo03.BLL;
 using Company.Demo03.BLL.Interfaces;
 using Company.Demo03.BLL.Repository;
 using Company.Demo03.DAL.Data.Contexts;
+using Company.Demo03.PL.Mapping.Employee;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using System;
@@ -22,7 +24,10 @@ namespace Company.Demo03.PL
             });
 
             builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
-            builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+            //builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            builder.Services.AddAutoMapper(typeof(EmployeeProfile));
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

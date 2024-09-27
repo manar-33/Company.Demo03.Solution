@@ -1,4 +1,5 @@
-﻿using Company.Demo03.BLL.Interfaces;
+﻿using Company.Demo03.BLL;
+using Company.Demo03.BLL.Interfaces;
 using Company.Demo03.BLL.Repository;
 using Company.Demo03.DAL.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -7,16 +8,23 @@ namespace Company.Demo03.PL.Controllers
 {
     public class DepartmentController : Controller
     {
-        private readonly IDepartmentRepository _departmentRepository;
-        public DepartmentController(IDepartmentRepository departmentRepository)
+        private readonly IUnitOfWork _unitOfWork;
+
+        //private readonly IDepartmentRepository _departmentRepository;
+
+
+
+        public DepartmentController(/*IDepartmentRepository departmentRepository*/ IUnitOfWork unitOfWork)
         {
-            _departmentRepository = departmentRepository;
+            _unitOfWork = unitOfWork;
+            // _departmentRepository = departmentRepository;
+
         }
         [HttpGet]
         public IActionResult Index()
         {
 
-            var departments = _departmentRepository.GetAll();
+            var departments = _unitOfWork.DepartmentRepository.GetAll();
             return View(departments);
         }
         public IActionResult Create()
@@ -29,7 +37,8 @@ namespace Company.Demo03.PL.Controllers
         {
             if (ModelState.IsValid)
             {
-                var Count = _departmentRepository.Add(model);
+                _unitOfWork.DepartmentRepository.Add(model);
+                var Count = _unitOfWork.Complete();
                 if (Count > 0)
                 {
                     return RedirectToAction("Index");
@@ -42,7 +51,7 @@ namespace Company.Demo03.PL.Controllers
         {
             if (id is null) return BadRequest();
 
-            var department = _departmentRepository.Get(id.Value);
+            var department = _unitOfWork.DepartmentRepository.Get(id.Value);
             if (department is null) return NotFound();
             return View(viewName,department);
 
@@ -67,7 +76,8 @@ namespace Company.Demo03.PL.Controllers
                 if (id != model.Id) return BadRequest();
                 if (ModelState.IsValid)
                 {
-                    var Count = _departmentRepository.Update(model);
+                    _unitOfWork.DepartmentRepository.Update(model);
+                    var Count = _unitOfWork.Complete();
                     if (Count > 0)
                     {
                         return RedirectToAction(nameof(Index));
@@ -100,7 +110,8 @@ namespace Company.Demo03.PL.Controllers
                 if (id != model.Id) return BadRequest();
                 if (ModelState.IsValid)
                 {
-                    var Count = _departmentRepository.Delete(model);
+                     _unitOfWork.DepartmentRepository.Delete(model);
+                    var Count = _unitOfWork.Complete();
                     if (Count > 0)
                     {
                         return RedirectToAction(nameof(Index));

@@ -1,4 +1,4 @@
-using Company.Demo03.PL.Models;
+using Company.Demo03.PL.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
