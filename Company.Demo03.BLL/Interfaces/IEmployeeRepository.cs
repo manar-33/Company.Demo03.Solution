@@ -5,11 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace Company.Demo03.BLL.Interfaces
 {
     public interface IEmployeeRepository : IGenericRepository<Employee>
     {
-        IEnumerable<Employee> GetByName(string name);
+        Task<IEnumerable<Employee>> GetByNameAsync(string name);
         //IEnumerable<Employee> GetAll();
         //Employee Get(int id);
         //int Add(Employee entity);

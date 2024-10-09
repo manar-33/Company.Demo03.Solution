@@ -1,4 +1,4 @@
-﻿@model Employee
+﻿@model EmployeeViewModel
 @{
     ViewData["Title"] = "Edit";
 }
@@ -7,9 +7,10 @@
 <br />
 <br />
 
-<form asp-action="Edit">
+<form asp-action="Edit" enctype="multipart/form-data">
     <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
     <partial name="PartialView/CreateEditPartialView" model="Model"></partial>
+    <input hidden asp-for="ImageName" />
     <br />
     <input class="btn btn-warning" type="submit" value="Save" />
     <a asp-action="Index" class="btn btn-light">Back To List</a>

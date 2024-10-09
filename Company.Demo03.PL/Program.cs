@@ -2,7 +2,10 @@ using Company.Demo03.BLL;
 using Company.Demo03.BLL.Interfaces;
 using Company.Demo03.BLL.Repository;
 using Company.Demo03.DAL.Data.Contexts;
+using Company.Demo03.DAL.Models;
+using Company.Demo03.PL.Controllers;
 using Company.Demo03.PL.Mapping.Employee;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using System;
@@ -28,6 +31,15 @@ namespace Company.Demo03.PL
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             builder.Services.AddAutoMapper(typeof(EmployeeProfile));
+            //builder.Services.AddScoped<UserManager<ApplicationUser>>();
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+                            .AddEntityFrameworkStores<AppDbContext>()
+                            .AddDefaultTokenProviders();
+
+            builder.Services.ConfigureApplicationCookie(config => 
+            {
+                config.LoginPath="/Account/SignIn";
+            });
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -42,7 +54,7 @@ namespace Company.Demo03.PL
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(

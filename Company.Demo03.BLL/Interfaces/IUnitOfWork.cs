@@ -10,7 +10,7 @@ namespace Company.Demo03.BLL.Interfaces
     {
         public IDepartmentRepository DepartmentRepository { get; }
         public IEmployeeRepository EmployeeRepository { get; }
-        public int Complete();
+        public Task<int> CompleteAsync();
         
 
     }
