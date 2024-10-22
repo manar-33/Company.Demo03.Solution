@@ -16,7 +16,7 @@ namespace Company.Demo03.DAL.Models
         [Required(ErrorMessage = "Name is Required")]
         public string Name { get; set; }
         [DisplayName("Date Of Creation")]
-        public DateTime DateOfCreation { get; set; }
+        public DateTime DateOfCreation { get; set; }= DateTime.Now;
         public ICollection<Employee>? Employees { get; set; }
     }
 }

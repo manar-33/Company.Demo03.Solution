@@ -178,5 +178,9 @@ namespace Company.Demo03.PL.Controllers
 			ModelState.AddModelError(string.Empty, "Invalid Operation");
 			return View(model);
 		}
-	}
+		public async Task<IActionResult> AccessDenied()
+		{
+			return View();
+		}
+    }
 }

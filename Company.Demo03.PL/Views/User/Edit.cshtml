@@ -1,0 +1,25 @@
+﻿@model UserViewModel
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit User</h1>
+<br />
+<br />
+<input type="hidden" asp-for="Id" />
+<form asp-action="Edit" enctype="multipart/form-data">
+    <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+    <partial name="UserPartialView/CreateEditPartialView" model="Model"></partial>
+
+
+    <input asp-action="Edit" class="btn btn-warning" value="Save" type="submit" /> 
+     @* <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>  *@
+    <a asp-action="Index" class="btn btn-light">Back To List</a>
+
+
+</form>
+@section Render {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}
+

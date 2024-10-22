@@ -1,0 +1,18 @@
+﻿@model UserViewModel
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Delete User</h1>
+<br />
+<br />
+<form asp-action="Delete" >
+    <partial name="UserPartialView/DetailsDeleteView" model="Model"></partial>
+   
+   @*  <input type="submit"  class="btn btn-danger" value="Delete" /> *@
+    <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-warning">Delete</a>
+    <a asp-action="Index" class="btn btn-light">Back To List</a>
+
+
+</form>
+
